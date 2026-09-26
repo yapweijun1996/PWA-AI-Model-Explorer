@@ -1,0 +1,23 @@
+{
+  "passed": 14,
+  "checks": [
+    "Subpath launch, real Chart.js, 102 source rows and disclosed chart omissions",
+    "Balanced preset actually enforces speed >=80 and all four constraints",
+    "Median selection uses one shared membership for chart, table and totals",
+    "Fifth selection blocked without evicting an existing selection",
+    "Native comparison dialog, metric row headers, Escape and focus restoration",
+    "Filters and comparison IDs survive reload; hidden selections remain explicit",
+    "IndexedDB notes and learning progress persist across reload",
+    "Light/dark app chrome, theme-color and charts update coherently",
+    "834px, 390px, 320px layouts: no document overflow; mobile cards and 16px inputs",
+    "Real offline reload: local Chart.js, dataset, comparison and notes work",
+    "N -> N+1 worker waits visibly; no silent reload",
+    "Explicit update loader, activation, reload, study retention and own-cache cleanup",
+    "Missing JS returns 404, never offline HTML",
+    "No uncaught page errors or runtime third-party requests"
+  ],
+  "limitations": [
+    "Physical iPhone/iPad Safari installation and actual system status bar not tested.",
+    "Public GitHub Pages deployment not performed."
+  ]
+}

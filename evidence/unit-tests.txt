@@ -1,0 +1,116 @@
+
+> ai-model-explorer@1.0.0 test
+> node --test tests/core.test.mjs
+
+TAP version 13
+# Subtest: retains 102 original rows; 96 complete; 2 rounded zeros
+ok 1 - retains 102 original rows; 96 complete; 2 rounded zeros
+  ---
+  duration_ms: 1.219797
+  type: 'test'
+  ...
+# Subtest: case insensitive search covers creator and exact variant
+ok 2 - case insensitive search covers creator and exact variant
+  ---
+  duration_ms: 0.358168
+  type: 'test'
+  ...
+# Subtest: 80 tokens/s is an actual numeric condition, not a missing select option
+ok 3 - 80 tokens/s is an actual numeric condition, not a missing select option
+  ---
+  duration_ms: 0.138794
+  type: 'test'
+  ...
+# Subtest: missing measurements fail active constraints
+ok 4 - missing measurements fail active constraints
+  ---
+  duration_ms: 0.14236
+  type: 'test'
+  ...
+# Subtest: zero filter is not treated as empty
+ok 5 - zero filter is not treated as empty
+  ---
+  duration_ms: 0.671579
+  type: 'test'
+  ...
+# Subtest: median handles null, odd, even and empty
+ok 6 - median handles null, odd, even and empty
+  ---
+  duration_ms: 0.179224
+  type: 'test'
+  ...
+# Subtest: null always sorts last in both directions
+ok 7 - null always sorts last in both directions
+  ---
+  duration_ms: 0.250609
+  type: 'test'
+  ...
+# Subtest: Pareto: one strict improvement; tied models retained; zero excluded
+ok 8 - Pareto: one strict improvement; tied models retained; zero excluded
+  ---
+  duration_ms: 0.600815
+  type: 'test'
+  ...
+# Subtest: full data 2D frontier is 11 positive cost rows
+ok 9 - full data 2D frontier is 11 positive cost rows
+  ---
+  duration_ms: 0.568748
+  type: 'test'
+  ...
+# Subtest: median scope uses base thresholds once, identical shared view membership
+ok 10 - median scope uses base thresholds once, identical shared view membership
+  ---
+  duration_ms: 0.920436
+  type: 'test'
+  ...
+# Subtest: complete scope matches 4D count
+ok 11 - complete scope matches 4D count
+  ---
+  duration_ms: 7.918353
+  type: 'test'
+  ...
+# Subtest: log cost never plots rounded zero; cost-only does not hide partial rows
+ok 12 - log cost never plots rounded zero; cost-only does not hide partial rows
+  ---
+  duration_ms: 0.470984
+  type: 'test'
+  ...
+# Subtest: selection limit rejects fifth without evicting first
+ok 13 - selection limit rejects fifth without evicting first
+  ---
+  duration_ms: 0.185083
+  type: 'test'
+  ...
+# Subtest: preferences validate compare IDs, enums and negative numeric filters
+ok 14 - preferences validate compare IDs, enums and negative numeric filters
+  ---
+  duration_ms: 0.276267
+  type: 'test'
+  ...
+# Subtest: CSV quotes and neutralizes formula prefixes
+ok 15 - CSV quotes and neutralizes formula prefixes
+  ---
+  duration_ms: 0.211161
+  type: 'test'
+  ...
+# Subtest: cost precision preserved
+ok 16 - cost precision preserved
+  ---
+  duration_ms: 0.092696
+  type: 'test'
+  ...
+# Subtest: invalid dataset rejects duplicate IDs, negative values and cost mismatch
+ok 17 - invalid dataset rejects duplicate IDs, negative values and cost mismatch
+  ---
+  duration_ms: 0.79405
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 69.746036

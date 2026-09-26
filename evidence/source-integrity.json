@@ -1,0 +1,17 @@
+{
+  "source": "User-supplied V5 dashboard",
+  "retainedRows": 102,
+  "fieldsChecked": [
+    "model",
+    "creator",
+    "context",
+    "intelligence",
+    "cost",
+    "costLabel",
+    "speed",
+    "latency",
+    "totalResponse"
+  ],
+  "allValuesPreserved": true,
+  "snapshotLiveVerified": false
+}

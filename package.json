@@ -1,0 +1,19 @@
+{
+  "name": "ai-model-explorer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first AI model learning and comparison PWA. Static GitHub Pages deployment.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/build.mjs && node scripts/serve.mjs",
+    "test": "node --test tests/core.test.mjs",
+    "check": "node scripts/check.mjs",
+    "test:browser": "python tests/browser.py",
+    "release": "node scripts/release.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
