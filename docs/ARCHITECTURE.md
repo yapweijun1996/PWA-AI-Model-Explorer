@@ -72,11 +72,10 @@ are neutralized. UI data is escaped before HTML insertion.
 The build contains no private browser records, secrets or authenticated sources.
 A deterministic content fingerprint separates same-version asset changes.
 `src/version.js` and `sw.js` are generated in dist, never edited manually.
-The repository provides the build and test scripts but does not currently
-include a checked-in GitHub Actions workflow. Deployment is therefore a
-separate publishing step: build `dist/`, review it, and publish only that
-directory through the chosen Pages workflow or branch-based setup. A release
-version change does not activate a waiting worker without the user's choice.
+The checked-in GitHub Actions workflow runs source checks, unit tests, the
+build and browser acceptance tests, then uploads and deploys only `dist/` to
+GitHub Pages. A release version change does not activate a waiting worker
+without the user's choice.
 
 ## Non-goals
 

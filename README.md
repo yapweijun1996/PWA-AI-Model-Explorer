@@ -21,10 +21,10 @@ Open `http://localhost:4173`. Do not double-click index.html: file:// does not s
    npm run check && npm test && npm run build
    ```
 
-3. Publish the **contents of `dist/`** with the GitHub Pages method you choose. This checkout does not include a `.github/workflows/pages.yml`; if you use GitHub Actions, add and maintain that workflow separately. A branch-based Pages deployment can publish `dist/` directly.
-4. Open the resulting Pages URL. The app uses relative URLs and a repository-scoped worker, so `/AI-Model-Explorer/` and custom-domain root deployments are supported.
+3. Push to `main` or manually run the included `.github/workflows/pages.yml`. It runs source checks, unit tests, the build and browser acceptance tests before uploading and deploying only `dist/`.
+4. Open the Pages URL from the completed workflow. The app uses relative URLs and a repository-scoped worker, so `/AI-Model-Explorer/` and custom-domain root deployments are supported.
 
-No GitHub repository has been created or modified for you. Publish only the built `dist/` contents; do not publish the unbuilt source root as the site.
+No GitHub repository has been created or modified for you. Enable GitHub Pages with **Settings → Pages → Build and deployment → Source → GitHub Actions**. Do not publish the unbuilt source root as the site.
 
 ## What changed from V5
 

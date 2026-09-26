@@ -17,7 +17,7 @@ Acceptance boundaries:
 - Visible version + install + explicit, safe update lifecycle.
 - Learning progress and model notes stay local with a backup mechanism.
 - Readable desktop/mobile UI, keyboard comparison and deterministic tests.
-- Ship source, reproducible build, clear deployment guidance and verified evidence.
+- Ship source, reproducible build, GitHub Pages deployment workflow and verified evidence.
 
 No claim that a general benchmark proves suitability for coding, ERP, tools,
 privacy, reliability or a user's specific workload.

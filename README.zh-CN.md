@@ -8,9 +8,9 @@
 
 ## 发布 GitHub Pages
 
-创建 `AI-Model-Explorer` 仓库。先在本地运行 `npm run check`、`npm test` 和 `npm run build`，再使用你选择的 GitHub Pages 方式发布 **`dist/` 的内容**。当前 checkout 没有包含 `.github/workflows/pages.yml`；如果使用 GitHub Actions，需要另外添加并维护该 workflow，也可以使用 branch-based Pages 直接发布 `dist/`。工具没有替你建立或发布仓库。
+创建 `AI-Model-Explorer` 仓库。先在本地运行 `npm run check`、`npm test` 和 `npm run build`，然后把代码推送到 `main`，或手动运行仓库内的 `.github/workflows/pages.yml`。Workflow 会先执行源码检查、单元测试、构建和浏览器验收，再只上传并部署 `dist/`。工具没有替你建立或发布仓库。
 
-不要把未经构建的源码根目录当作上线目录。
+进入 Settings → Pages → Build and deployment → Source，选择 GitHub Actions。不要把未经构建的源码根目录当作上线目录。
 
 ## 日常使用逻辑
 
