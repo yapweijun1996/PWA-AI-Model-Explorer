@@ -2,4 +2,4 @@
 > ai-model-explorer@1.0.0 build
 > node scripts/build.mjs
 
-{"out":"/mnt/data/AI-Model-Explorer/dist","version":"1.0.0","build":"d847324d5125","precacheFiles":21}
+{"out":"/Users/yapweijun/Documents/GitHub/PWA-AI-Model-Explorer/dist","version":"1.0.0","build":"bd8fd1695920","precacheFiles":21}

@@ -1,22 +1,33 @@
 """Real Chromium acceptance, offline and N->N+1 lifecycle test. Run after npm run build.
 Uses isolated temporary profiles/site copies. It never modifies the source dataset or production dist.
 """
-import json, os, shutil, subprocess, tempfile, time, pathlib
+import json, os, shutil, socket, subprocess, tempfile, time, pathlib
 from playwright.sync_api import sync_playwright, expect
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 EVIDENCE=ROOT/'evidence'; EVIDENCE.mkdir(exist_ok=True)
 results=[]
 def record(name):
     results.append(name); print('PASS:',name,flush=True)
-def launch_server(directory,port=4175,base='/models/'):
-    return subprocess.Popen(['node',str(ROOT/'scripts/serve.mjs'),'--dir',str(directory),'--port',str(port),'--base',base],stdout=subprocess.DEVNULL)
+def launch_server(directory,base='/models/'):
+    with socket.socket() as probe:
+        probe.bind(('127.0.0.1',0)); port=probe.getsockname()[1]
+    process=subprocess.Popen(['node',str(ROOT/'scripts/serve.mjs'),'--dir',str(directory),'--port',str(port),'--base',base],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    deadline=time.monotonic()+5
+    while time.monotonic()<deadline:
+        if process.poll() is not None:
+            raise RuntimeError(f'Test server exited before becoming ready (code {process.returncode}).')
+        try:
+            with socket.create_connection(('127.0.0.1',port),timeout=.2): return process,port
+        except OSError: time.sleep(.05)
+    process.terminate();process.wait(timeout=5)
+    raise RuntimeError('Test server did not become ready within 5 seconds.')
 def ready(page,url):
     page.goto(url); page.wait_for_selector('html[data-ready="true"]'); page.wait_for_function("typeof Chart==='function' && Object.keys(Chart.instances).length===1")
 def no_overflow(page):
     assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),page.evaluate('({width:innerWidth,scroll:document.documentElement.scrollWidth})')
 with tempfile.TemporaryDirectory(prefix='model-explorer-e2e-') as temp:
     temp=pathlib.Path(temp); site=temp/'site'; shutil.copytree(ROOT/'dist',site)
-    server=launch_server(site); time.sleep(.6)
+    server,port=launch_server(site)
     try:
       with sync_playwright() as p:
         executable=os.environ.get('BROWSER_PATH') or shutil.which('chromium') or shutil.which('google-chrome')
@@ -24,8 +35,8 @@ with tempfile.TemporaryDirectory(prefix='model-explorer-e2e-') as temp:
         context=browser.new_context(viewport={'width':1440,'height':1000},device_scale_factor=1)
         page=context.new_page(); errors=[]; external=[]
         page.on('pageerror',lambda e:errors.append(str(e)))
-        page.on('request',lambda r:external.append(r.url) if not r.url.startswith('http://127.0.0.1:4175') else None)
-        url='http://127.0.0.1:4175/models/'
+        page.on('request',lambda r:external.append(r.url) if not r.url.startswith(f'http://127.0.0.1:{port}') else None)
+        url=f'http://127.0.0.1:{port}/models/'
         ready(page,url); no_overflow(page)
         expect(page.locator('#resultStatus')).to_contain_text('102 matches')
         expect(page.locator('#plotCount')).to_contain_text('100 plotted / 102')
@@ -115,6 +126,19 @@ with tempfile.TemporaryDirectory(prefix='model-explorer-e2e-') as temp:
         assert not errors,errors
         assert not external,external
         record('No uncaught page errors or runtime third-party requests')
+        broken= temp/'broken'; shutil.copytree(ROOT/'dist',broken); (broken/'offline.html').unlink()
+        broken_server,broken_port=launch_server(broken)
+        broken_context=None
+        try:
+            broken_context=browser.new_context(viewport={'width':1440,'height':1000})
+            broken_page=broken_context.new_page(); broken_page.goto(f'http://127.0.0.1:{broken_port}/models/')
+            broken_page.wait_for_selector('html[data-ready="true"]')
+            expect(broken_page.locator('#pwaStatus')).to_contain_text('Offline preparation failed',timeout=5000)
+            expect(broken_page.locator('#offlineStatus')).to_contain_text('Try again')
+            record('Initial precache failure is surfaced instead of leaving PWA status stuck')
+        finally:
+            if broken_context: broken_context.close()
+            broken_server.terminate();broken_server.wait(timeout=5)
         context.close();browser.close()
       (EVIDENCE/'browser-results.json').write_text(json.dumps({'passed':len(results),'checks':results,'limitations':['Physical iPhone/iPad Safari installation and actual system status bar not tested.','Public GitHub Pages deployment not performed.']},indent=2))
     finally:

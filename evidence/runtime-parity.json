@@ -1,10 +1,10 @@
 {
-  "browserEnvironment": "Google Chrome 153.0.8010.52 on Linux; Playwright 1.57.0; Python 3.12",
+  "browserEnvironment": "Google Chrome 153.0.8010.53 on macOS; Playwright 1.57.0; Python 3.14.3",
   "testedVersion": "1.0.0",
-  "testedBuild": "d847324d5125",
+  "testedBuild": "bd8fd1695920",
   "updateFixtureVersion": "1.0.1",
-  "updateFixtureBuild": "cca0524d9f86",
-  "testedAtUTC": "2026-09-26T01:39:11Z",
+  "updateFixtureBuild": "82478ee6c692",
+  "testedAtUTC": "2026-09-26T13:17:54.902Z",
   "testSite": "localhost /models/ subpath (not a public deployment)",
   "runtimeHashesMatchPackagedFiles": true,
   "sha256": {
@@ -12,7 +12,7 @@
     "src/charts.js": "4226c791eea4a02095aaffc78679e29db11fabe93b23b5b6c8ff289b6c4a30c2",
     "src/core.js": "b8ac5741afab96eb574ad2f8ad74ff06f19f2fd06d013582306f34586988243f",
     "src/lessons.js": "8e3b05e9b21d377c894a4332c4dcbbaa733510786d0cfd45ed0eca252d34e54c",
-    "src/pwa.js": "f4ffe34625b1a6116aec7219abc4ea29b35a56fccd206f8b3c1867265098ed30",
+    "src/pwa.js": "442d431ad1a579088a1ac29d4a244631894dfb70a8e72667647d343547ad0a18",
     "src/storage.js": "595021c837665c612881e85a481a6db47a64c8abbfe0df188ffa8a450526e0c1",
     "src/theme-init.js": "3c7e5758f22139acf520badad739321a5ca7a17b29a9408666047bbeb9a81c38",
     "assets/app.css": "aecf1a489c0291ed483fa3d426ef89a9d257db701cba82aea770925be6c0a82d",

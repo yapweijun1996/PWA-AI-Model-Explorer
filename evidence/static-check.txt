@@ -2,4 +2,4 @@
 > ai-model-explorer@1.0.0 check
 > node scripts/check.mjs
 
-PASS: JS syntax, dataset schema, unique HTML IDs, static DOM references
+PASS: JS syntax, dataset schema, unique HTML IDs, static DOM references, release checksums

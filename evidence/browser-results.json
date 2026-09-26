@@ -1,5 +1,5 @@
 {
-  "passed": 14,
+  "passed": 15,
   "checks": [
     "Subpath launch, real Chart.js, 102 source rows and disclosed chart omissions",
     "Balanced preset actually enforces speed >=80 and all four constraints",
@@ -14,7 +14,8 @@
     "N -> N+1 worker waits visibly; no silent reload",
     "Explicit update loader, activation, reload, study retention and own-cache cleanup",
     "Missing JS returns 404, never offline HTML",
-    "No uncaught page errors or runtime third-party requests"
+    "No uncaught page errors or runtime third-party requests",
+    "Initial precache failure is surfaced instead of leaving PWA status stuck"
   ],
   "limitations": [
     "Physical iPhone/iPad Safari installation and actual system status bar not tested.",

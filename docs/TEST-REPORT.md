@@ -2,17 +2,17 @@
 
 ## Measured result
 
-**17/17 domain tests and 14/14 browser acceptance checks passed.** Syntax, dataset-schema, unique-ID and static DOM-reference checks also passed. This is a measured acceptance result, not a claim of universal PWA certification or compatibility with every browser.
+**17/17 domain tests and 15/15 browser acceptance checks passed.** Syntax, dataset-schema, unique-ID, static DOM-reference and release-checksum checks also passed. This is a measured acceptance result, not a claim of universal PWA certification or compatibility with every browser.
 
-The packaged runtime matches the browser-tested build **d847324d5125**, version **1.0.0**. `evidence/runtime-parity.json` records matching SHA-256 hashes for runtime code, CSS, the dataset and vendored Chart.js.
+The packaged runtime matches the browser-tested build **bd8fd1695920**, version **1.0.0**. `evidence/runtime-parity.json` records matching SHA-256 hashes for runtime code, CSS, the dataset and vendored Chart.js.
 
 ## Environment and method
 
-Browser tests ran on an isolated Linux workstation using Google Chrome **153.0.8010.52**, Playwright **1.57.0**, and Python **3.12**. They served the built release at a localhost **/models/** subpath to exercise repository-relative URLs. The initial working container could not open local browser test pages due to its environment policy, so real browser acceptance was performed on the independent workstation instead. That restriction was not bypassed.
+Browser tests ran on the local macOS workstation using Google Chrome **153.0.8010.53**, Playwright **1.57.0**, and Python **3.14.3**. They served the built release at a localhost **/models/** subpath to exercise repository-relative URLs. The initial working container could not open local browser test pages due to its environment policy, so the browser acceptance was run through the installed local browser instead. That restriction was not bypassed.
 
 Viewports: desktop 1440×1000, tablet 834×1112, mobile 390×844, and narrow mobile 320×740. Mobile checks used Chromium viewport emulation, not physical iOS devices.
 
-The test exercised actual Chart.js rendering, browser storage, a registered Service Worker, real offline reload, and a second build at version **1.0.1** (fixture build **cca0524d9f86**). The old page stayed open until explicit user approval; after activation and reload, saved notes and selections survived, this application's old cache was removed, and an unrelated cache remained untouched.
+The test exercised actual Chart.js rendering, browser storage, a registered Service Worker, real offline reload, and a second build at version **1.0.1** (fixture build **82478ee6c692**). The old page stayed open until explicit user approval; after activation and reload, saved notes and selections survived, this application's old cache was removed, and an unrelated cache remained untouched.
 
 ## Browser acceptance
 
@@ -30,6 +30,7 @@ The test exercised actual Chart.js rendering, browser storage, a registered Serv
 12. PASS — Explicit update loader, activation, reload, study retention and own-cache cleanup.
 13. PASS — Missing JS returns 404, never offline HTML.
 14. PASS — No uncaught page errors or runtime third-party requests.
+15. PASS — Initial precache failure is surfaced instead of leaving PWA status stuck.
 
 ## Domain regression coverage
 
@@ -42,7 +43,7 @@ The test exercised actual Chart.js rendering, browser storage, a registered Serv
 - A browser-test polling helper used string evaluation during a CSP-protected reload. The test now uses a locator text assertion; the application's Content Security Policy was **not** weakened.
 - Note inputs remain disabled until their asynchronous IndexedDB read has resolved, preventing an old read from overwriting newly typed text.
 
-The build-output safety guard was added after browser acceptance and then rechecked locally; it changes build tooling, not the tested runtime. Packaged runtime hashes and the release content fingerprint are unchanged.
+The checksum validation, dynamic test-server startup and initial precache failure guard were added during this review and rechecked with the current packaged runtime. The browser evidence and runtime-parity hashes were refreshed after those changes.
 
 ## Source integrity
 

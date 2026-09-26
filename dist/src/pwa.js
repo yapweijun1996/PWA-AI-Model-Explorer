@@ -22,6 +22,7 @@ export async function initPWA({toast,beforeUpdate}){
   finally{$('checkUpdate').disabled=false;}
  };
  function updateFailed(){applying=false;$('applyUpdate').disabled=false;$('updatingDialog').close();$('updateMessage').textContent='Update activation timed out. Nothing was deleted; retry or reload when ready.';toast('Update did not complete. Try again.');}
+ function waitForReady(reg,timeoutMs=15000){return new Promise((resolve,reject)=>{let timer,settled=false,watchState=()=>{};const worker=reg.installing;const finish=()=>{if(settled)return;settled=true;clearTimeout(timer);worker?.removeEventListener('statechange',watchState);resolve(reg);};const fail=error=>{if(settled)return;settled=true;clearTimeout(timer);worker?.removeEventListener('statechange',watchState);reject(error);};watchState=()=>{if(worker?.state==='activated'&&reg.active)finish();else if(worker?.state==='redundant')fail(new Error('Service worker installation failed.'));};if(reg.active)finish();else{worker?.addEventListener('statechange',watchState);timer=setTimeout(()=>fail(new Error('Service worker did not become ready.')),timeoutMs);navigator.serviceWorker.ready.then(finish,fail);}});}
  $('updatingDialog').addEventListener('cancel',e=>e.preventDefault());
  $('applyUpdate').onclick=async()=>{
   if(applying||!beforeUpdate())return;
@@ -39,7 +40,7 @@ export async function initPWA({toast,beforeUpdate}){
  });
  try{
   registration=await navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'});watch(registration);
-  const ready=await navigator.serviceWorker.ready;
+  const ready=await waitForReady(registration);
   $('pwaStatus').textContent=`Running ${VERSION} · service worker active`;$('offlineStatus').textContent='Ready offline: model data, charts, comparisons, lessons and local notes after this successful preparation.';
   if(ready.waiting&&navigator.serviceWorker.controller)offer(ready.waiting);
   if(navigator.onLine)registration.update().catch(()=>{});
